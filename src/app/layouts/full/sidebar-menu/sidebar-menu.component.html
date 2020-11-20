@@ -1,0 +1,52 @@
+<!--
+<div class="user-profile" style="background: url(assets/images/background/user-info.jpg) no-repeat;">
+  <div class="profile-img" style="padding-top: 10px; padding-bottom: 10px;">
+    <img src="{{userInfo.imageUrl}}" alt="user">
+  </div>
+  <div class="profile-text">
+    <a [matMenuTriggerFor]="sdprofile" class="">
+      {{userInfo.fullName}} - {{userInfo.roleName}}
+      <i class="ti-angle-down font-12 m-l-5"></i>
+    </a>
+  </div>
+  <mat-menu #sdprofile="matMenu" class="mymegamenu">
+    <button  mat-menu-item>
+        <mat-icon>lock</mat-icon> Đổi mật khẩu
+    </button>
+    <button mat-menu-item (click)="userInformation();">
+        <mat-icon>account_box</mat-icon> Thông tin cá nhân
+    </button>
+    <button  mat-menu-item routerLink="/logout">
+        <mat-icon>exit_to_app</mat-icon> Đăng xuất
+    </button>
+  </mat-menu>
+</div> -->
+<form id="formSearchMenu" style="padding-top: 5px; padding-bottom: 10px;">
+  <span class="p-input-icon-left" style="padding-left: 20px;padding-top: 10px;">
+    <i class="pi pi-search" style="padding-left: 20px; padding-top: 5px;padding-bottom: 5px;"></i>
+    <div class="ui-g-12">
+      <input type="text" class="form-control" pInputText placeholder="Tìm kiếm"
+        style="border-radius: 4px; padding-left: 1.5rem; font-size: 14px; height: 35px;"/>
+    </div>
+  </span>
+</form>
+<app-panel-menu></app-panel-menu>
+<!-- <p-scrollPanel [style]="{width: '100%', height: '500px'}">
+  <mat-nav-list appAccordion>
+    <mat-list-item appAccordionLink routerLinkActive="selected">
+      <a class="" appAccordionToggle [routerLink]="['/welcome/', username]">
+        <mat-icon>home</mat-icon>
+        <span>Trang chủ</span>
+        <span fxFlex></span>
+      </a>
+    </mat-list-item>
+    <mat-list-item appAccordionLink *ngFor="let menuitem of menuItems.getMenuitem()" routerLinkActive="selected"
+          style="color: orange;">
+        <a class="" appAccordionToggle [routerLink]="['/', menuitem.state]" *ngIf="menuitem.type === 'link'">
+            <mat-icon>{{ menuitem.icon }}</mat-icon>
+            <span>{{ menuitem.name }}</span>
+            <span fxFlex></span>
+        </a>
+    </mat-list-item>
+  </mat-nav-list>
+</p-scrollPanel> -->

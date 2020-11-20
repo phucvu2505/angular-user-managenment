@@ -1,0 +1,66 @@
+<div class="modal-body">
+  <form id="frmSaveSysCat" [formGroup]="formSave">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+            <strong class="text-u-c">
+              <i class="fa fa-th"></i>
+              <span *ngIf="!formSave.get('sysCatId').value"> Thêm mới danh mục</span>
+              <span *ngIf="formSave.get('sysCatId').value"> Sửa danh mục</span>
+            </strong>
+            <div class="vt-absolute vt-shotcut-button-in-heading">
+              <span style="display: inline-block;" (click)="activeModal.close()" title="{{'Đóng'}}" class="btn btn-span btn-sm btn-info"><i class="fa fa-times"></i></span>
+            </div>
+        </div>
+        <div class="panel-body padding-xl ui-g">
+          <div class="ui-g-12">
+            <label class="ui-g-12 ui-md-6 ui-lg-2 control-label vt-align-right">Mã <font size="2" color="red">*</font></label>
+            <div class="ui-g-12 ui-md-6 ui-lg-3">
+              <input class="form-control ng-pristine ng-invalid ng-touched" formControlName="code" maxlength="50" autofocus>
+              <app-control-messages [control]="f['code']"></app-control-messages>
+            </div>
+
+            <label class="ui-g-12 ui-md-6 ui-lg-3 control-label vt-align-right">Tên <font size="2" color="red">*</font></label>
+            <div class="ui-g-12 ui-md-6 ui-lg-3">
+              <input class="form-control ng-pristine ng-invalid ng-touched" formControlName="name" maxlength="200">
+              <app-control-messages [control]="f['name']"></app-control-messages>
+            </div>
+          </div>
+          <div class="ui-g-12">
+            <!-- <label class="ui-g-12 ui-md-6 ui-lg-2 control-label vt-align-right">Điểm <font size="2" color="red">*</font></label>
+            <div class="ui-g-12 ui-md-6 ui-lg-3">
+              <input class="form-control ng-pristine ng-invalid ng-touched" formControlName="value" maxlength="20">
+              <app-control-messages [control]="f['value']"></app-control-messages>
+            </div> -->
+
+            <label class="ui-g-12 ui-md-6 ui-lg-2 control-label vt-align-right">Tên nhóm danh mục</label>
+            <div class="ui-g-12 ui-md-6 ui-lg-3">
+              <input class="form-control ng-pristine ng-invalid ng-touched" formControlName="sysCatTypeName" maxlength="200" readonly>
+              <app-control-messages [control]="f['sysCatTypeName']"></app-control-messages>
+            </div>
+            <!-- <label [hidden]="f['status'].isHide"
+                   [ngClass]="{'required': f['status'].isRequire}"
+                   class="ui-g-12 ui-md-6 ui-lg-3 control-label vt-align-right">
+              Mặc định
+            </label>
+            <div [hidden]="f['status'].isHide" class="ui-g-12 ui-md-6 ui-lg-3">
+              <label class="i-switch bg-info m-t-xs m-r">
+                <input type="checkbox" name="status" [value]="1" formControlName="status" />
+                <i></i>
+              </label>
+              <app-control-messages [control]="f['status']"></app-control-messages>
+            </div> -->
+          </div>
+
+          <div class="ui-g-12">
+            <label class="ui-g-12 ui-md-6 ui-lg-2 control-label vt-align-right">Mô tả</label>
+            <textarea class="form-control ui-g-12 ui-md-6 ui-lg-9" formControlName="description" maxlength="4000">
+            </textarea>
+          </div>
+        </div>
+        <div class="panel-footer vt-area-button">
+            <button type="submit" (click)="processSaveOrUpdate()" class="btn btn-sm btn-info"> <i class="fa fa-save"></i> Lưu lại</button>
+            <button type="button" (click)="activeModal.close()" class="btn btn-sm btn-danger"> <i class="fa fa-times"></i> Hủy</button>
+        </div>
+      </div>
+  </form>
+</div>

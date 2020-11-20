@@ -1,0 +1,13 @@
+.s-ss .p-panelmenu .p-panelmenu-header .p-panelmenu-content{
+  border: none !important;
+  background: #fff !important;
+}
+
+.p-panelmenu .p-panelmenu-header > a {
+  background: #ffffff !important;
+}
+
+.s-icon .p-panelmenu .p-panelmenu-header > a .p-panelmenu-icon {
+  margin-right: -13.5rem;
+  margin-left: 197px;
+}

@@ -1,0 +1,39 @@
+<div *ngIf="basicAuthenticationService.isUserLogin()">
+  <div class="main-container">
+    <mat-toolbar color="primary" class="topbar telative" style="height: 50px;
+        background: linear-gradient(-206deg, #0288D1 5%, #2c467a   100%);">
+        <!-- background: linear-gradient(-206deg, #4b6cb7 5%, #182848 100%);"> -->
+        <!-- background: #0288D1!important"> -->
+      <button mat-icon-button  (click)="snav.toggle()" value="sidebarclosed"
+          style="border: none;  color: #fff; background: none;">
+        <mat-icon style="padding-top: 10px;padding-bottom: 10px;">menu</mat-icon>
+      </button>
+      <span class="viewname ng-star-inserted" style="text-transform: uppercase; font-weight: 600; font-size: 1.25rem;">
+        Angular
+      </span>
+      <span class="example-spacer"></span>
+      <app-header></app-header>
+    </mat-toolbar>
+    <mat-sidenav-container class="example-sidenav-container" [style.marginTop.px]="mobileQuery.matches ? 0 : 0">
+      <mat-sidenav #snav id="snav" class="dark-sidebar pl-xs"
+        [mode]="mobileQuery.matches ? 'side' : 'over'"
+        fixedTopGap="0" [opened]="mobileQuery.matches" [disableClose]="mobileQuery.matches">
+          <app-sidebar-menu></app-sidebar-menu>
+      </mat-sidenav>
+      <mat-sidenav-content class="page-wrapper">
+        <div class="page-content" style="height: 100%;">
+          <router-outlet>
+            <!-- <app-breadcrumb #pMenu [options]="listMenu"></app-breadcrumb> -->
+            <app-spinner></app-spinner>
+          </router-outlet>
+        </div>
+        <!-- <div style="height: 1%;">
+          <app-footer></app-footer>
+        </div> -->
+      </mat-sidenav-content>
+    </mat-sidenav-container>
+  </div>
+</div>
+<!-- <div *ngIf="!basicAuthenticationService.isUserLogin()">
+  <app-login></app-login>
+</div> -->

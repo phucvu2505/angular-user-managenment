@@ -1,0 +1,18 @@
+<!-- <app-sidebar></app-sidebar> -->
+<!-- <div class="container">
+<router-outlet></router-outlet>
+</div> -->
+<!-- <app-admin-layout></app-admin-layout> -->
+<router-outlet>
+  <app-spinner></app-spinner>
+</router-outlet>
+<p-confirmDialog #cd [style]="{width: '425px'}" [acceptButtonStyleClass]="'btn-info'" [rejectButtonStyleClass]="'btn-danger'"
+  [baseZIndex] = "1052" autoZIndex="false">
+    <p-footer>
+        <button type="button" pButton class="btn-info" icon="pi pi-check" [label]="'Có'" (click)="cd.accept()"></button>
+        <button type="button" pButton class="btn-danger" icon="pi pi-times" [label]="'Không'" (click)="cd.reject()"></button>
+    </p-footer>
+</p-confirmDialog>
+<p-toast position="bottom-right"></p-toast>
+
+<!-- <app-footer></app-footer> -->

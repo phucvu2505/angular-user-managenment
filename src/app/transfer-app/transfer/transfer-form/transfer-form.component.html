@@ -1,0 +1,188 @@
+<style>
+  .ui-button.ui-button-icon-only {
+    padding-top: 1px !important;
+    padding-bottom: 1px !important;
+  }
+</style>
+
+<div class="modal-body">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <strong class="text-u-c">
+        <i class="fa fa-th"></i>
+        <span *ngIf="!formSave.get('transferId').value">Tạo điện chuyển tiền</span>
+        <span *ngIf="formSave.get('transferId').value">
+          Sửa điện chuyển tiền
+        </span>
+      </strong>
+      <div class="vt-absolute vt-shotcut-button-in-heading" style="float: right">
+        <span style="display: inline-block" (click)="activeModal.close()" title="{{ 'Đóng' }}"
+          class="ng-tns-c23-6 p-dialog-header-icon p-dialog-header-close p-link p-ripple ng-star-inserted"><i
+            class="pi pi-times"></i></span>
+      </div>
+    </div>
+
+    <mat-horizontal-stepper [linear]="isLinear" #stepper>
+      <mat-step [stepControl]="formSave">
+        <div id="transfer-infomation">
+          <ng-template matStepLabel>Nhập lệnh chuyển khoản</ng-template>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="card">
+                <form [formGroup]="formSave">
+                  <div class="card-header">
+                    <h4 class="card-title" style="font-weight: bold">Từ</h4>
+                    <p class="card-category">VND-TGTT-VU THANH PHUC</p>
+                    <p class="card-category">{{sourceAccountView}}</p>
+                    <p class="card-category">VND 1,147,519</p>
+                  </div>
+
+                  <div class="card-header">
+                    <h4 class="card-title" style="font-weight: bold">
+                      Chuyển đến
+                    </h4>
+
+                    <div class="panel-body padding-xl ui-g">
+                      <div class="ui-g-12">
+                        <label class="ui-g-12 ui-md-6 ui-lg-2 control-label vt-align-right">Mã giao dịch
+                          <font size="2" color="red">*</font></label>
+                        <div class="ui-g-12 ui-md-6 ui-lg-3">
+                          <input class="form-control ng-pristine ng-invalid ng-touched" formControlName="code"
+                            maxlength="100" />
+                          <app-control-messages [control]="f['code']"></app-control-messages>
+                        </div>
+
+                        <label class="ui-g-12 ui-md-6 ui-lg-2 control-label vt-align-right">Chọn ngân hàng
+                          <font size="2" color="red">*</font></label>
+                        <div class="ui-g-12 ui-md-6 ui-lg-3">
+                          <app-select-filter [placeHolder]="' -- Hãy chọn--'" [property]="f['beneficiaryBank']"
+                            [options]="bankList" optionLabel="name" optionValue="code">
+                          </app-select-filter>
+                          <app-control-messages [control]="f['beneficiaryBank']"></app-control-messages>
+                        </div>
+                      </div>
+
+                      <div class="ui-g-12">
+                        <label class="ui-g-12 ui-md-6 ui-lg-2 control-label vt-align-right">Tên người hưởng
+                          <font size="2" color="red">*</font></label>
+                        <div class="ui-g-12 ui-md-6 ui-lg-3">
+                          <input class="form-control ng-pristine ng-invalid ng-touched"
+                            formControlName="beneficiaryName" maxlength="100" />
+                          <app-control-messages [control]="f['beneficiaryName']"></app-control-messages>
+                        </div>
+
+                        <label class="ui-g-12 ui-md-6 ui-lg-2 control-label vt-align-right">Tài khoản thụ hưởng
+                          <font size="2" color="red">*</font></label>
+                        <div class="ui-g-12 ui-md-6 ui-lg-3">
+                          <input class="form-control ng-pristine ng-invalid ng-touched" formControlName="targetAccount"
+                            maxlength="100" />
+                          <app-control-messages [control]="f['targetAccount']"></app-control-messages>
+                        </div>
+                      </div>
+
+                      <div class="ui-g-12">
+                        <label class="ui-g-12 ui-md-6 ui-lg-2 control-label vt-align-right">Số tiền <font size="2"
+                            color="red">*</font></label>
+                        <div class="ui-g-12 ui-md-6 ui-lg-3">
+                          <input class="form-control ng-pristine ng-invalid ng-touched" formControlName="amount"
+                            maxlength="100" />
+                          <app-control-messages [control]="f['amount']"></app-control-messages>
+                        </div>
+
+                        <label class="ui-g-12 ui-md-6 ui-lg-2 control-label vt-align-right">Nội dung thông điệp</label>
+                        <div class="ui-g-12 ui-md-6 ui-lg-3">
+                          <textarea class="form-control ng-pristine ng-invalid ng-touched" formControlName="comment"
+                            maxlength="200">
+                          </textarea>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+        <br />
+        <button pButton label="Tiếp tục" icon="pi pi-arrow-right" type="button" class="p-button-label p-button-sm"
+          iconPos="right" (click)="goForward(stepper)"></button>
+      </mat-step>
+
+      <mat-step [stepControl]="secondFormGroup">
+        <form [formGroup]="secondFormGroup">
+          <ng-template matStepLabel>Xác nhận</ng-template>
+          <mat-card>
+            <div class="row confirm-step">
+              <div class="col-md-3 confirm-label-side">
+                <div class="_line">Mã giao dịch</div>
+                <div class="_line">Tài khoản chuyển</div>
+                <div class="_line">Ngân hàng nhận</div>
+                <div class="_line">Tên người nhận</div>
+                <div class="_line">Tài khoản nhận</div>
+                <div class="_line">Số tiền</div>
+                <div class="_line">Nội dung</div>
+                <div class="_line">Thời gian chuyển</div>
+                <div class="_line">Mã xác thực</div>
+              </div>
+              <div class="col-md-9 confirm-content-side">
+                <!-- <div class="_line">{{ selectedRollout }}</div> -->
+                <div class="_line">
+                  {{ formSave.get("code").value }}
+                </div>
+                <div class="_line">
+                  {{ formSave.get("sourceAccount").value }}
+                </div>
+                <div class="_line">
+                  {{ formSave.get("beneficiaryBank").value }}
+                </div>
+                <div class="_line">
+                  {{ formSave.get("beneficiaryName").value }}
+                </div>
+                <div class="_line">
+                  {{ formSave.get("targetAccount").value }}
+                </div>
+                <div class="_line">{{ formSave.get("amount").value }} VND</div>
+                <div class="_line">
+                  {{ formSave.get("comment").value }}
+                </div>
+                <div class="_line">{{ newDate }}</div>
+                <div class="_line">
+                  <!-- <mat-label>Soft token</mat-label> -->
+                  <input class="form-control ng-pristine ng-invalid ng-touched" formControlName="softToken"
+                            maxlength="100" />
+                            <label style="color: red;"> {{lineError}}</label>
+                </div>
+              </div>
+            </div>
+          </mat-card>
+          <div>
+            <button pButton label="Quay lại" icon="pi pi-arrow-left" type="button" class="p-button-label p-button-sm"
+              iconPos="left" (click)="goBack(stepper)"></button>
+            <button pButton type="submit" (click)="processSaveOrUpdate(stepper)" class="p-button-sm p-button-info"
+              label="Xác nhận" icon="pi pi-save"></button>
+          </div>
+        </form>
+      </mat-step>
+
+      <mat-step>
+        <ng-template matStepLabel>Kết thúc</ng-template>
+        <mat-card>
+          <div class="finish-step">
+            <div>
+              <span
+                class="material-icons"
+                style="font-size: 40px; margin-bottom: 2%; color: #00d60a"
+                >check_circle_outline</span
+              >
+            </div>
+            <p style="font-size: 24px">Giao dịch thành công!</p>
+          </div>
+        </mat-card>
+        <div>
+          <button mat-button (click)="reset(stepper)">Giao dịch khác</button>
+          <button mat-button (click)="end()">Kết thúc</button>
+        </div>
+      </mat-step>
+    </mat-horizontal-stepper>
+  </div>
+</div>

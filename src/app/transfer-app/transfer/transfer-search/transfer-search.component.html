@@ -1,0 +1,212 @@
+<app-breadcrumb [options]="listMenu"></app-breadcrumb>
+<div class="panel panel-default">
+  <form id="formSearch" [formGroup]="formSearch">
+    <div class="panel-heading">
+      <strong class="text-u-c">
+        <i class="fa fa-th"></i>
+        <span> Thông tin tìm kiếm</span>
+      </strong>
+    </div>
+    <div class="panel-body padding-xl ui-g">
+      <div class="ui-g-12">
+        <label class="ui-g-12 ui-md-6 ui-lg-2 control-label vt-align-right"
+          >KeySearch</label
+        >
+        <div class="ui-g-12 ui-md-6 ui-lg-3">
+          <input
+            class="form-control ng-pristine ng-invalid ng-touched"
+            formControlName="keySearch"
+            maxlength="50"
+            autofocus
+          />
+        </div>
+      </div>
+
+      <div class="ui-g-12">
+        <label class="ui-g-12 ui-md-6 ui-lg-2 control-label vt-align-right"
+          >Mã giao dịch</label
+        >
+        <div class="ui-g-12 ui-md-6 ui-lg-3">
+          <input
+            class="form-control ng-pristine ng-invalid ng-touched"
+            formControlName="code"
+            maxlength="50"
+            autofocus
+          />
+        </div>
+      </div>
+    </div>
+    <!-- button sử dụng native -->
+    <div class="panel-footer vt-area-button">
+      <button
+        type="button"
+        class="p-button-info p-mr-2 p-button p-component ng-star-inserted"
+        (click)="processSearch()"
+      >
+        <span class="p-button-icon p-button-icon-left pi pi-search"></span
+        ><span class="p-button-label">Tìm kiếm</span>
+      </button>
+    </div>
+  </form>
+</div>
+
+<div class="panel panel-default">
+  <div class="panel-heading vt-relative">
+    <strong class="text-u-c">
+      <i class="fa fa-th"></i>
+      <span> Danh sách giao dịch</span>
+    </strong>
+    <div class="vt-absolute vt-shotcut-button-in-heading">
+      <!-- button sử dụng primeng -->
+      <span class="p-buttonset">
+        <button
+          pButton
+          label="Duyệt Điện"
+          icon="pi pi-check"
+          type="button"
+          class="p-button-info p-button-sm"
+          (click)="duyenDien()"
+        ></button>
+
+        <button
+          pButton
+          label="Xóa Điện"
+          icon="pi pi-times"
+          type="button"
+          class="p-button-danger p-button-sm"
+          (click)="xoaDien()"
+        ></button>
+
+        <button
+          pButton
+          label="Thêm mới"
+          icon="pi pi-plus"
+          type="button"
+          class="p-button-label p-button-sm"
+          (click)="prepareSaveOrUpdate(0)"
+        ></button>
+
+        <button
+          pButton
+          label="Xuất báo cáo"
+          icon="pi pi-info"
+          type="button"
+          class="p-button-label p-button-sm"
+          (click)="exportData()"
+        ></button>
+
+        <button
+          pButton
+          label="Nhập dữ liệu"
+          icon="pi pi-info"
+          type="button"
+          class="p-button-label p-button-sm"
+          (click)="redirectImport()"
+        ></button>
+      </span>
+    </div>
+  </div>
+  <div class="panel-body panel-table">
+    <p-table
+      #ptable
+      [value]="resultList.data"
+      [paginator]="resultList.data && resultList.data.length"
+      [(selection)]="selectedTransfers"
+      (onLazyLoad)="processSearch($event)"
+      [lazy]="true"
+      [rows]="10"
+      [rowsPerPageOptions]="[5, 10, 15]"
+      [totalRecords]="resultList.recordsTotal"
+      [responsive]="true"
+      [lazyLoadOnInit]="false"
+      tableStyleClass="table table-wrapper table-hover table-striped b-t b-b"
+    >
+      <ng-template pTemplate="colgroup" let-columns>
+        <colgroup>
+          <col class="size-2" />
+          <col class="size-3" />
+          <col class="size-4" />
+          <col class="size-4" />
+          <col class="size-5" />
+          <col class="size-5" />
+          <col class="size-5" />
+          <col class="size-5" />
+          <col class="size-5" />
+          <col class="size-3" />
+          <col class="size-6" />
+        </colgroup>
+      </ng-template>
+      <ng-template pTemplate="header" let-columns>
+        <tr>
+          <th>STT</th>
+          <th>Chọn</th>
+          <th>Thao tác</th>
+          <th pSortableColumn="code">
+            Mã giao dịch <p-sortIcon [field]="'code'"></p-sortIcon>
+          </th>
+          <th>Tài khoản chuyển</th>
+          <th>Ngân hàng thụ hưởng</th>
+          <th>Người thụ hưởng</th>
+          <th>Tài khoản thụ hưởng</th>
+          <th>Số tiền</th>
+          <th>Trạng thái</th>
+          <th>Ngày tạo</th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-item let-index="rowIndex">
+        <tr>
+          <td class="vt-align-center">{{ index + 1 }}</td>
+          <td class="vt-align-center">
+            <p-tableCheckbox [value]="item"></p-tableCheckbox>
+          </td>
+          <td class="vt-align-center">
+            <a
+              class="p-button-rounded p-button-label p-mr-2 p-component p-button-icon-only"
+              (click)="prepareSaveOrUpdate(item.transferId)"
+              [title]="'Sửa'"
+              ><i class="pi pi-pencil" style="color: #2196f3"></i
+            ></a>
+            <a
+              class="p-button-rounded p-button-label p-mr-2 p-component p-button-icon-only"
+              (click)="processDelete(item.transferId)"
+              [title]="'Xóa'"
+              ><i class="pi pi-trash" style="color: red"></i
+            ></a>
+          </td>
+          <td class="vt-align-center">
+            {{ item.code }}
+          </td>
+          <td class="vt-align-center">
+            {{ item.sourceAccount }}
+          </td>
+          <td class="vt-align-center">
+            {{ item.beneficiaryBank }}
+          </td>
+          <td class="vt-align-center">
+            {{ item.beneficiaryName }}
+          </td>
+          <td class="vt-align-center">
+            {{ item.targetAccount }}
+          </td>
+          <td class="vt-align-center">
+            {{ item.amount }}
+          </td>
+          <td class="vt-align-center">
+            {{ item.status }}
+          </td>
+          <td class="vt-align-center">
+            {{ item.createdDate | date: "dd/MM/yyyy" }}
+          </td>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="emptymessage">
+        <tr class="emptymessage">
+          <td [attr.colspan]="6">Không tồn tại bản ghi</td>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="paginatorleft">
+        <table-footer [resultList]="resultList"></table-footer>
+      </ng-template>
+    </p-table>
+  </div>
+</div>

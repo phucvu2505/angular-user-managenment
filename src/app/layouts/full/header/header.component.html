@@ -1,0 +1,65 @@
+
+<div class="topbar-right">
+  <ul class="topbar-menu">
+    <li class="search-item" [matMenuTriggerFor]="searchHeader" style="margin-left: 1rem; position: relative;">
+			<a tabindex="0" class="s-a">
+				<i class="pi pi-search s-i"></i>
+			</a>
+    </li>
+    <li class="notifications-item" style="margin-left: 1rem; position: relative;">
+      <a href="#" tabindex="0">
+        <i class="pi pi-bell s-i"></i>
+        <span class="topbar-badge">5</span>
+      </a>
+    </li>
+    <li class="profile-item" [matMenuTriggerFor]="profile" style="margin-left: 1rem; position: relative;">
+      <a  class="s-a-profile">
+        <img alt="diamond-layout" class="profile-pic" src="{{userInfo.imageUrl}}">
+        <span class="profile-name" style="font-size: 0.875rem; font-weight: 600; padding-left: 5px;">
+          {{userInfo.fullName}}
+        </span>
+      </a>
+    </li>
+  </ul>
+</div>
+
+<mat-menu #profile="matMenu" class="mymegamenu">
+  <!-- <div class="display-table s-mat-menu-item" mat-menu-item>
+      <div class="table-cell menu-text">
+              Họ và tên:
+              {{userInfo.fullName}}
+      </div>
+  </div> -->
+  <div class="display-table s-mat-menu-item" mat-menu-item>
+      <div class="table-cell menu-text">
+              Vai trò: {{userInfo.roleName}}
+      </div>
+  </div>
+  <hr>
+  <button  class="s-mat-menu-item" mat-menu-item>
+    <!-- (click)="changePassword();" -->
+      <mat-icon>lock</mat-icon> Đổi mật khẩu
+  </button>
+  <button class="s-mat-menu-item" mat-menu-item (click)="userInformation();">
+      <mat-icon>account_box</mat-icon> Thông tin cá nhân
+  </button>
+  <!-- <button mat-menu-item>
+      <mat-icon>notifications_off</mat-icon> Disable notifications </button> -->
+  <button  class="s-mat-menu-item" mat-menu-item routerLink="/logout">
+    <!-- (click)="logOut();" -->
+      <mat-icon>exit_to_app</mat-icon> Đăng xuất
+  </button>
+</mat-menu>
+
+
+<mat-menu #searchHeader="matMenu" class="mymegamenu">
+  <form id="formSearchMenu">
+    <span class="p-input-icon-left" style="padding-left: 20px;padding-top: 10px;">
+      <i class="pi pi-search" style="padding-left: 20px; padding-top: 5px;padding-bottom: 5px;"></i>
+      <div class="ui-g-12">
+        <input type="text" class="form-control" pInputText placeholder="Tìm kiếm"
+          style="border-radius: 4px; padding-left: 2rem; font-size: 13px;"/>
+      </div>
+    </span>
+  </form>
+</mat-menu>

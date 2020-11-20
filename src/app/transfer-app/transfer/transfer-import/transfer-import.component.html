@@ -1,0 +1,37 @@
+<div class="content">
+    <div class="panel panel-default">
+        <form id="formImport" [formGroup]="formImport">
+            <div class="panel-heading">
+                <strong class="text-u-c">
+                    <i class="fa fa-th"></i>
+                    <span> Thông tin nhập dữ liệu</span>
+                </strong>
+            </div>
+
+            <div class="panel-body padding-xl ui-g">
+                <div class="ui-g-12">
+                    <label class="ui-g-12 ui-md-6 ui-lg-5 control-label vt-align-right">Chọn file nhập <font size="2"
+                            color="red">*</font></label>
+                    <div class="ui-g-12 ui-md-6 ui-lg-3">
+                        <file-choser [property]="f['fileImport']" validMaxSize="10" validType="xls">
+                        </file-choser>
+                        <app-control-messages [control]="f['fileImport']"></app-control-messages>
+                    </div>
+                    <a class="text-link ui-g-12 ui-md-6 ui-lg-6 control-label vt-align-right"
+                        (click)="exportTemplate();"><span><i class="fa fa-download"></i> Tải về file biểu mẫu</span></a>
+                </div>
+            </div>
+
+            <div class="panel-footer vt-area-button">
+                <button type="button" (click)="processImport();" class="btn btn-sm btn-info"><span
+                        class="glyphicons glyphicons-disk-open"></span> Nhập dữ liệu</button>
+                <button type="button" (click)="redirectBack();" class="btn btn-sm btn-info"> <i
+                        class="fas fa-arrow-left"></i> Quay lại</button>
+            </div>
+        </form>
+    </div>
+
+    <div *ngIf="dataError">
+        <!-- <import-error [data]="dataError"></import-error> -->
+    </div>
+</div>
