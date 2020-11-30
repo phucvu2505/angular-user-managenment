@@ -16,12 +16,12 @@ const BANK_OPERATOR_MENUITEMS = [
       {
         label: 'Danh sách người dùng',
         icon: 'pi pi-fw pi-list',
-        routerLink: '',
+        routerLink: 'user-list',
       },
       {
         label: 'Tạo tài khoản',
         icon: 'pi pi-fw pi-list',
-        routerLink: '',
+        routerLink: 'user-create',
       },
     ],
   },
@@ -32,7 +32,7 @@ const BANK_OPERATOR_MENUITEMS = [
       {
         label: 'Lịch sử giao dịch',
         icon: 'pi pi-fw pi-list',
-        routerLink: '',
+        routerLink: 'history-transfer',
       },
     ],
   },

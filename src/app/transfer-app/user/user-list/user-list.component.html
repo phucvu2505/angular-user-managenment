@@ -1,0 +1,33 @@
+<div class="users-list-container">
+  <p-card header="Users List">
+    <p-table [value]="users"
+       [rowsPerPageOptions]="[10,20,30]" showJumpToPageDropdown="true"
+       sortMode="multiple">
+      <ng-template pTemplate="header">
+        <tr>
+          <th pSortableColumn="fullname">FullName<p-sortIcon field="fullname"></p-sortIcon></th>
+          <th pSortableColumn="name">Name<p-sortIcon field="name"></p-sortIcon></th>
+          <th pSortableColumn="mobile">Mobile<p-sortIcon field="mobile"></p-sortIcon></th>
+          <th pSortableColumn="create_at">CreateAt<p-sortIcon field="create_at"></p-sortIcon></th>
+          <th pSortableColumn="email">Email<p-sortIcon field="email"></p-sortIcon></th>
+          <th pSortableColumn="photo">Photo<p-sortIcon field="photo"></p-sortIcon></th>
+          <th>Action</th>
+      </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-user>
+        <tr>
+          <td>{{ user.fullname }}</td>
+          <td>{{ user.mobile }}</td>
+          <td>{{ user.name }}</td>
+          <td>{{ user.email }}</td>
+          <td>{{ user.photo }}</td>
+          <td>{{ user.create_at| date }}</td>
+          <td>
+            <button pButton class="p-button-primary p-mr-2" icon="pi pi-pencil" label="Edit" routerLink="/users/{{ user.id }}"></button>
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+
+  </p-card>
+</div>

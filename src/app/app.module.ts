@@ -10,6 +10,7 @@ import { ScrollPanelModule } from 'primeng/scrollpanel';
 import { ToastModule } from 'primeng/toast';
 import { ButtonModule } from 'primeng/button';
 import { MessageService } from 'primeng/api';
+import {CardModule} from 'primeng/card';
 
 import { MaterialModule } from './material-module';
 import { SharedModule } from './shared/shared.module';
@@ -27,6 +28,7 @@ import { SysCatSearchComponent } from './transfer-app/sys-cat/sys-cat-search/sys
 import { SysCatFormComponent } from './transfer-app/sys-cat/sys-cat-form/sys-cat-form.component';
 import { UserInfoComponent } from './transfer-app/user-info/user-info.component';
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -41,6 +43,7 @@ import { UserInfoComponent } from './transfer-app/user-info/user-info.component'
     UserInfoComponent,
     SysCatSearchComponent,
     SysCatFormComponent,
+
   ],
   imports: [
     BrowserModule,
@@ -54,6 +57,7 @@ import { UserInfoComponent } from './transfer-app/user-info/user-info.component'
     RouterModule.forRoot(AppRoutes),
     ScrollPanelModule,
     CoreModule,
+    CardModule
   ],
   providers: [AppComponent, MessageService],
   bootstrap: [AppComponent],

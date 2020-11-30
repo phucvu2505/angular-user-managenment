@@ -5,7 +5,7 @@
 export const environment = {
   production: false,
   serverUrl: {
-    ess: 'http://localhost:8081',
+    ess: ' http://10.53.122.222:8082',
     oauth: 'http://localhost:8081/api-oauth',
     // file      : 'http://14.162.144.202:8088',
   },

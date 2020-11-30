@@ -35,7 +35,7 @@ export class PanelMenuComponent {
         label: 'Trang chủ',
         icon: 'pi pi-home pi-file',
         routerLink: '/welcome/' + this.username,
-      },
+      }
     ];
     this.userInfo = this.authenticationService.getUserInfo();
     if ((this.userInfo.username = 'admin')) {

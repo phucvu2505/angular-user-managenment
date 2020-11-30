@@ -5,9 +5,12 @@ import { BasicService } from './basic.service';
 import { HelperService } from 'src/app/shared/service/helper.service';
 import { CommonUtils } from 'src/app/shared/service/common-utils.service';
 
+const AUTH_API = 'http://localhost:8080/api/auth/';
 @Injectable({
   providedIn: 'root',
 })
+
+
 export class UserService extends BasicService {
   constructor(
     public httpClient: HttpClient,
@@ -29,5 +32,12 @@ export class UserService extends BasicService {
     const url = `${this.serviceUrl}/search-user?`;
     console.log('buildParams: ', buildParams)
     return this.getRequest(url, { params: buildParams });
+  }
+
+  public register(user): Observable<any>{
+    return this.httpClient.post(AUTH_API + 'signup',{
+      username: user.username,
+      password: user.password
+    });
   }
 }

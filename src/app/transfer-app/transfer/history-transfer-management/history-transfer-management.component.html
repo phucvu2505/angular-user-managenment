@@ -1,0 +1,117 @@
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <strong class="text-u-c">
+      <i class="fa fa-th"></i>
+      <span> Thông tin tìm kiếm</span>
+    </strong>
+  </div>
+  <div class="panel-body padding-xl ui-g">
+
+    <div class="ui-g-12">
+      <label class="ui-g-12 ui-md-6 ui-lg-2 control-label vt-align-right">KeySearch</label>
+      <div class="ui-g-12 ui-md-6 ui-lg-3">
+        <input class="form-control ng-pristine ng-invalid ng-touched"
+               maxlength="50"
+               [(ngModel)]="KeySearch"
+               autofocus/>
+      </div>
+    </div>
+
+    <div class="ui-g-12">
+      <label class="ui-g-12 ui-md-6 ui-lg-2 control-label vt-align-right">Transaction_code</label>
+      <div class="ui-g-12 ui-md-6 ui-lg-3">
+        <input class="form-control ng-pristine ng-invalid ng-touched"
+               maxlength="50"
+               [(ngModel)]="Transaction_code"
+               autofocus/>
+      </div>
+    </div>
+  </div>
+  <!-- button sử dụng native -->
+  <!-- <div class="panel-footer vt-area-button">
+    <button type="button" class="p-button-info p-mr-2 p-button p-component ng-star-inserted"
+            (click)="processSearch()">
+      <span class="p-button-icon p-button-icon-left pi pi-search"></span><span class="p-button-label">Tìm kiếm</span>
+    </button>
+  </div>
+</div> -->
+
+<div class="panel panel-default">
+<div class="panel-heading vt-relative">
+  <strong class="text-u-c">
+    <i class="fa fa-th"></i>
+    <span> Danh sách giao dịch</span>
+  </strong>
+</div>
+
+<!-- <div *ngIf="!listData || listData?.length === 0" class="alert alert-warning" id="no-result">
+  <span>Không có bản ghi nào</span>
+</div> -->
+
+<div class="panel-body panel-table" >
+  <p-table #ptable [value]="transfers" [lazy]="true" [rows]="10" [responsive]="true" [rowsPerPageOptions]="[10,20,30]" showJumpToPageDropdown="true"
+  sortMode="multiple"
+           [lazyLoadOnInit]="false" tableStyleClass="table table-wrapper table-hover table-striped b-t b-b">
+    <ng-template pTemplate="colgroup" let-columns>
+      <colgroup>
+        <col class="size-2"/>
+        <col class="size-3"/>
+        <col class="size-4"/>
+        <col class="size-4"/>
+        <col class="size-5"/>
+        <col class="size-5"/>
+        <col class="size-5"/>
+        <col class="size-5"/>
+        <col class="size-5"/>
+        <col class="size-3"/>
+        <col class="size-6"/>
+      </colgroup>
+    </ng-template>
+    <ng-template pTemplate="header" let-columns>
+      <tr>
+        <th>STT</th>
+        <th pSortableColumn="owner">Owner<p-sortIcon field="owner"></p-sortIcon></th>
+        <th pSortableColumn="action">Action<p-sortIcon field="action"></p-sortIcon></th>
+        <th pSortableColumn="transac_at">Transac_At<p-sortIcon field="create_at"></p-sortIcon></th>
+        <th pSortableColumn="result">Result<p-sortIcon field="result"></p-sortIcon></th>
+        <th pSortableColumn="account">Account<p-sortIcon field="account"></p-sortIcon></th>
+        <th pSortableColumn="to_account">To_Account<p-sortIcon field="to_account"></p-sortIcon></th>
+        <th pSortableColumn="to_transfer">To_Transfer<p-sortIcon field="to_transfer"></p-sortIcon></th>
+        <th pSortableColumn="amount">Amount<p-sortIcon field="amount"></p-sortIcon></th>
+        <th pSortableColumn="tranfer_at">Transfer_At<p-sortIcon field="transfer_at"></p-sortIcon></th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-item let-index="rowIndex">
+      <tr>
+        <td >
+          {{ item.owner}}
+        </td>
+        <td>
+          {{ item.action }}
+        </td>
+        <td >
+          {{ item.transac_at }}
+        </td>
+        <td >
+          {{ item.result }}
+        </td>
+        <td >
+          {{ item.account }}
+        </td>
+        <td >
+          {{ item.to_account }}
+        </td>
+        <td >
+          {{ item.to_transfer }}
+        </td>
+        <td >
+          {{ item.to_amount }}
+        </td>
+        <td >
+          {{ item.transfer_at }}
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>
+</div>

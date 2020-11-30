@@ -1,0 +1,42 @@
+<div class="register-container" >
+  <h4>Đăng ký</h4>
+  <form *ngIf="!isSuccessful" #f="ngForm" (ngSubmit)="f.form.valid && onSubmit()">
+    <p-card>
+      <div class="p-fluid">
+          <div class="p-field">
+              <label for="username">Tên Đăng Nhập</label>
+              <input id="username" name="username" type="text" [(ngModel)]="form.username"
+                required minlength="3" maxlength="20" #username="ngModel" pInputText>
+              <div *ngIf="f.submitted && username.invalid">
+                <small class="p-invalid" *ngIf="username.errors.required">Username Required</small>
+                <small class="p-invalid" *ngIf="username.errors.minlength"> Username must be at least 3 characters</small>
+                <small class="p-invalid" *ngIf="username.errors.maxlength">Username must be at most 20 characters</small>
+              </div>
+          </div>
+          <div class="p-field">
+              <label for="password">Mật khẩu</label>
+              <input id="password" name="password" type="password" [(ngModel)]="form.password"
+                required minlength="6" #password="ngModel" pInputText>
+              <div *ngIf="f.submitted && password.invalid">
+                <small class="p-invalid" *ngIf="password.errors.required">Password is required</small>
+                <small class="p-invalid" *ngIf="password.errors.minlength">Password must be at least 6 characters</small>
+              </div>
+          </div>
+      </div>
+
+      <div>
+        <button pButton class="p-button-primary" icon="pi pi-user-edit" label="SignUp"></button>
+      </div>
+
+      <div *ngIf="f.submitted && isSignUpFailed">
+        <p> Signup failed!<br />{{ errorMessage }}</p>
+      </div>
+    </p-card>
+  </form>
+
+  <div *ngIf="isSuccessful">
+    <p-card>
+      Your registration is successful!
+    </p-card>
+  </div>
+</div>
