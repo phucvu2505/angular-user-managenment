@@ -11,21 +11,24 @@ import { TableModule } from 'primeng/table';
 import { PaginatorModule } from 'primeng/paginator';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { DropdownModule } from 'primeng/dropdown';
-import {PanelMenuModule} from 'primeng/panelmenu';
-import {TabMenuModule} from 'primeng/tabmenu';
-import {ChartModule} from 'primeng/chart';
+import { PanelMenuModule } from 'primeng/panelmenu';
+import { TabMenuModule } from 'primeng/tabmenu';
+import { ChartModule } from 'primeng/chart';
 import { BreadcrumbModule } from 'primeng/breadcrumb';
 
 import { BreadcrumbComponent } from './components/breadcrumb/breadcrumb.component';
 import { AppTabMenuComponent } from './components/tab-menu/tab-menu.component';
 import { PieChartDemo } from './components/pie-chart/pie-chart.component';
 import { PanelMenuComponent } from './components/panel-menu/panel-menu.component';
-import { MenuItems } from './menu-items/menu-items';
+
 import { DatePickerComponent } from './components/date-picker/date-picker.component';
 import { ControlMessagesComponent } from './components/control-messages/control-messages.component';
 import { TableFooterComponent } from './components/table-footer/table-footer.component';
 import { SelectFilterComponent } from './components/select-filter/select-filter.component';
 import { FileChoserComponent } from './components/file-choser/file-choser.component';
+
+import { BankOperatorMenuItems } from './menu-items/menu-items-bank-operator';
+import { CustomerMenuItems } from './menu-items/menu-items-customer';
 @NgModule({
   declarations: [
     DatePickerComponent,
@@ -36,7 +39,7 @@ import { FileChoserComponent } from './components/file-choser/file-choser.compon
     PieChartDemo,
     AppTabMenuComponent,
     FileChoserComponent,
-    BreadcrumbComponent
+    BreadcrumbComponent,
   ],
   imports: [
     ConfirmDialogModule,
@@ -53,9 +56,9 @@ import { FileChoserComponent } from './components/file-choser/file-choser.compon
     PanelMenuModule,
     ChartModule,
     TabMenuModule,
-    BreadcrumbModule
+    BreadcrumbModule,
   ],
-  providers: [ConfirmationService, MenuItems],
+  providers: [ConfirmationService, CustomerMenuItems, BankOperatorMenuItems],
   exports: [
     ConfirmDialogModule,
     CalendarModule,
@@ -71,7 +74,7 @@ import { FileChoserComponent } from './components/file-choser/file-choser.compon
     ChartModule,
     TabMenuModule,
     BreadcrumbModule,
-    
+
     PanelMenuComponent,
     PieChartDemo,
     AppTabMenuComponent,

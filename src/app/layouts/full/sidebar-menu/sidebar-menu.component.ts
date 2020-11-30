@@ -3,7 +3,6 @@ import { OnInit, OnDestroy, Component, ChangeDetectorRef } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { MediaMatcher } from '@angular/cdk/layout';
-import { MenuItems } from 'src/app/shared/menu-items/menu-items';
 import { UserToken } from 'src/app/core/models/user-token.model';
 
 @Component({
@@ -17,20 +16,17 @@ export class AppSidebarMenuComponent implements OnInit, OnDestroy {
   items = [];
   userInfo: UserToken;
   username = '';
-  // tslint:disable-next-line: variable-name
   private _mobileQueryListener: () => void;
 
   constructor(
     changeDetectorRef: ChangeDetectorRef,
     media: MediaMatcher,
     public router: Router,
-    public menuItems: MenuItems,
     public authenticationService: AuthenticationService,
     public httpClient: HttpClient
   ) {
     this.mobileQuery = media.matchMedia('(min-width: 768px)');
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();
-    // tslint:disable-next-line: deprecation
     this.mobileQuery.addListener(this._mobileQueryListener);
     this.userInfo = authenticationService.getUserInfo();
     console.log('userInfo: ', this.userInfo);
@@ -40,8 +36,7 @@ export class AppSidebarMenuComponent implements OnInit, OnDestroy {
   ngOnInit(): void {}
 
   ngOnDestroy(): void {
-    // tslint:disable-next-line: deprecation
-    this.mobileQuery.removeListener(this._mobileQueryListener);
+    +this.mobileQuery.removeListener(this._mobileQueryListener);
   }
 
   public userInformation() {

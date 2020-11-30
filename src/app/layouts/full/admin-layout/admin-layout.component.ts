@@ -8,7 +8,6 @@ import {
 import { MediaMatcher } from '@angular/cdk/layout';
 import { MenuItem } from 'primeng/api';
 import { BaseComponent } from 'src/app/shared/components/base-component/base-component.component';
-import { MenuItems } from 'src/app/shared/menu-items/menu-items';
 import { AuthenticationService } from './../../../core/auth/authentication.service';
 
 @Component({
@@ -26,7 +25,6 @@ export class AdminLayoutComponent
   constructor(
     changeDetectorRef: ChangeDetectorRef,
     media: MediaMatcher,
-    public menuItems: MenuItems,
     public authenticationService: AuthenticationService
   ) {
     super();

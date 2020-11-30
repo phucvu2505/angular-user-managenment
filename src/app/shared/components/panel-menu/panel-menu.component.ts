@@ -1,7 +1,12 @@
+import { BankOperatorMenuItems } from './../../menu-items/menu-items-bank-operator';
 import { Component } from '@angular/core';
 import { MenuItem } from 'primeng/api';
-import { MenuItems } from '../../menu-items/menu-items';
-import { AuthenticationService } from './../../../core/auth/authentication.service';
+
+import { CustomerMenuItems } from './../../menu-items/menu-items-customer';
+import {
+  AuthenticationService,
+  UserLogin,
+} from './../../../core/auth/authentication.service';
 
 @Component({
   selector: 'app-panel-menu',
@@ -11,9 +16,15 @@ import { AuthenticationService } from './../../../core/auth/authentication.servi
 export class PanelMenuComponent {
   items: MenuItem[];
   username = '';
+  userInfo = {
+    fullName: '',
+    password: '',
+    username: '',
+  };
   constructor(
     public authenticationService: AuthenticationService,
-    public menuItems: MenuItems
+    public customerMenuItems: CustomerMenuItems,
+    public bankOperatorMenuItems: BankOperatorMenuItems
   ) {
     this.username = this.authenticationService.getAuthenticatedUser();
   }
@@ -26,8 +37,15 @@ export class PanelMenuComponent {
         routerLink: '/welcome/' + this.username,
       },
     ];
-    for (const item of this.menuItems.getMenuitem()) {
-      this.items.push(item);
+    this.userInfo = this.authenticationService.getUserInfo();
+    if ((this.userInfo.username = 'admin')) {
+      for (const item of this.bankOperatorMenuItems.getMenuItem()) {
+        this.items.push(item);
+      }
+    } else {
+      for (const item of this.customerMenuItems.getMenuItem()) {
+        this.items.push(item);
+      }
     }
   }
 }
