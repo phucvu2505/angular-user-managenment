@@ -7,14 +7,14 @@ import { BaseComponent } from 'src/app/shared/components/base-component/base-com
 import { AppComponent } from 'src/app/app.component';
 import { TransferFormComponent } from '../transfer-form/transfer-form.component';
 import { ACTION_FORM, RESOURCE } from 'src/app/core/app-config';
-import { BasicAuthenticationService } from 'src/app/core/services/basic-authentication.service';
 import { TransferService } from 'src/app/core/services/transfer.service';
+import { AuthenticationService } from './../../../core/auth/authentication.service';
 import { CommonUtils } from 'src/app/shared/service/common-utils.service';
 
 @Component({
   selector: 'app-transfer-search',
   templateUrl: './transfer-search.component.html',
-  styleUrls: ['./transfer-search.component.css']
+  styleUrls: ['./transfer-search.component.css'],
 })
 export class TransferSearchComponent extends BaseComponent implements OnInit {
   resultList: any = {};
@@ -25,17 +25,17 @@ export class TransferSearchComponent extends BaseComponent implements OnInit {
     private transferService: TransferService,
     private modalService: NgbModal,
     private app: AppComponent,
-    private basicAuthenticationService: BasicAuthenticationService
+    public authenticationService: AuthenticationService
   ) {
     super(actr, RESOURCE.TRANSFER, ACTION_FORM.SEARCH);
     this.setMainService(transferService);
-    this.listMenu.push({label: 'Quản lý giao dịch'});
-    this.listMenu.push({label: 'Danh sách giao dịch'});
+    this.listMenu.push({ label: 'Quản lý giao dịch' });
+    this.listMenu.push({ label: 'Danh sách giao dịch' });
     this.formSearch = this.buildForm(
       {},
       {
         code: ['', [Validators.maxLength(50)]],
-        keySearch: ['', [Validators.maxLength(200)]]
+        keySearch: ['', [Validators.maxLength(200)]],
       }
     );
   }
@@ -69,22 +69,17 @@ export class TransferSearchComponent extends BaseComponent implements OnInit {
    * @param id
    */
   processDelete(id): void {
-    if (this.basicAuthenticationService.isAdmin() || this.basicAuthenticationService.isAccounting()) {
-      if (id && id > 0) {
-        this.transferService.confirmDelete({
-          messageCode: null,
-          accept: () => {
-            this.transferService.deleteById(id)
-              .subscribe(res => {
-                if (this.transferService.requestIsSuccess(res)) {
-                  this.processSearch();
-                }
-              });
-          }
-        });
-      }
-    } else {
-      this.app.warningMessage('Thông báo', 'Bạn không có quyền thực hiện chức năng này');
+    if (id && id > 0) {
+      this.transferService.confirmDelete({
+        messageCode: null,
+        accept: () => {
+          this.transferService.deleteById(id).subscribe((res) => {
+            if (this.transferService.requestIsSuccess(res)) {
+              this.processSearch();
+            }
+          });
+        },
+      });
     }
   }
 
@@ -97,22 +92,17 @@ export class TransferSearchComponent extends BaseComponent implements OnInit {
    * @param item
    */
   prepareSaveOrUpdate(item: any): void {
-    console.log('item: ', item)
-    if (this.basicAuthenticationService.isAdmin() || this.basicAuthenticationService.isAccounting()) {
-      if (item && item > 0) {
-        this.transferService.findOne(item).subscribe((res) => {
-          console.log('res', res);
-          this.activeFormModal(
-            this.modalService,
-            TransferFormComponent,
-            res.data
-          );
-        });
-      } else {
-        this.activeFormModal(this.modalService, TransferFormComponent, null);
-      }
+    if (item && item > 0) {
+      this.transferService.findOne(item).subscribe((res) => {
+        console.log('res', res);
+        this.activeFormModal(
+          this.modalService,
+          TransferFormComponent,
+          res.data
+        );
+      });
     } else {
-      this.app.warningMessage('Thông báo', 'Bạn không có quyền thực hiện chức năng này');
+      this.activeFormModal(this.modalService, TransferFormComponent, null);
     }
   }
 
@@ -120,22 +110,25 @@ export class TransferSearchComponent extends BaseComponent implements OnInit {
    * @function duyetDien
    */
   duyenDien(): void {
-    if (this.basicAuthenticationService.isAdmin()) {
-      if (this.selectedTransfers != undefined) {
-        this.app.confirmMessage(null, () => {// on accepted
-          this.transferService.duyetLo(this.selectedTransfers)
-            .subscribe(res => {
+    if (this.selectedTransfers != undefined) {
+      this.app.confirmMessage(
+        null,
+        () => {
+          // on accepted
+          this.transferService
+            .duyetLo(this.selectedTransfers)
+            .subscribe((res) => {
               if (this.transferService.requestIsSuccess(res)) {
                 this.processSearch();
               }
             });
-        }, () => {// on rejected
-        });
-      } else {
-        this.app.warningMessage('Thông báo', 'Yêu cầu chọn ít nhất 1 giao dịch');
-      }
+        },
+        () => {
+          // on rejected
+        }
+      );
     } else {
-      this.app.warningMessage('Thông báo', 'Bạn không có quyền thực hiện chức năng này');
+      this.app.warningMessage('Thông báo', 'Yêu cầu chọn ít nhất 1 giao dịch');
     }
   }
 
@@ -143,23 +136,26 @@ export class TransferSearchComponent extends BaseComponent implements OnInit {
    * @function xoaDien
    */
   xoaDien(): void {
-    console.log("selectedTransfers", this.selectedTransfers);
-    if (this.basicAuthenticationService.isAdmin()) {
-      if (this.selectedTransfers != undefined) {
-        this.app.confirmMessage(null, () => {// on accepted
-          this.transferService.xoaLo(this.selectedTransfers)
-            .subscribe(res => {
+    console.log('selectedTransfers', this.selectedTransfers);
+    if (this.selectedTransfers != undefined) {
+      this.app.confirmMessage(
+        null,
+        () => {
+          // on accepted
+          this.transferService
+            .xoaLo(this.selectedTransfers)
+            .subscribe((res) => {
               if (this.transferService.requestIsSuccess(res)) {
                 this.processSearch();
               }
             });
-        }, () => {// on rejected
-        });
-      } else {
-        this.app.warningMessage('Thông báo', 'Yêu cầu chọn ít nhất 1 giao dịch');
-      }
+        },
+        () => {
+          // on rejected
+        }
+      );
     } else {
-      this.app.warningMessage('Thông báo', 'Bạn không có quyền thực hiện chức năng này');
+      this.app.warningMessage('Thông báo', 'Yêu cầu chọn ít nhất 1 giao dịch');
     }
   }
 
@@ -168,7 +164,7 @@ export class TransferSearchComponent extends BaseComponent implements OnInit {
       return;
     } else {
       const params = this.formSearch.value;
-      this.transferService.export(params).subscribe(res => {
+      this.transferService.export(params).subscribe((res) => {
         saveAs(res, 'transfer.xlsx');
       });
     }
